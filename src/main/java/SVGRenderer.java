@@ -11,7 +11,7 @@ public class SVGRenderer implements Renderer {
 
     public SVGRenderer(double size, PrintWriter writer) {
         this.size = size;
-        color = null;
+        color = new Color(0, 0, 0);
 
         this.writer = writer;
     }
@@ -37,12 +37,8 @@ public class SVGRenderer implements Renderer {
     }
 
     private String getColorString() {
-        if (color == null) {
-            return "rgb(0, 0, 0)";  // black
-        } else {
-            return String.format("rgb(%s, %s, %s)",
-                    color.getRed(), color.getBlue(), color.getGreen());
-        }
+        return String.format("rgb(%s, %s, %s)",
+                color.getRed(), color.getBlue(), color.getGreen());
     }
 
     public void drawPolygon(List<Point> points) {
