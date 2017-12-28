@@ -17,7 +17,7 @@ public class Identicon {
         for (int i = 0; i < size / 2; i++) {
             for (int j = 0; j < size / 2; j++) {
                 // select random shape
-                Shape shape = shapeChoices[rand.nextInt(shapeChoices.length)];
+                Shape shape = generateShape(rand);
 
                 // rotate to random position
                 for (int r = 0; r < rand.nextInt(4); r++) {
@@ -51,50 +51,81 @@ public class Identicon {
         target.end();
     }
 
-    private static final Shape[] shapeChoices = new Shape[]{
-        // corner square
+    private static Shape generateShape(Random rand) {
+        int option = rand.nextInt(6);
+        switch (option) {
+            case 0: {
+                // 4 quarters
+                Shape base = halfByHalfs[rand.nextInt(halfByHalfs.length)];
+                return new MultiShape(base,
+                                      base.transform(0.5, 0),
+                                      base.transform(0, 0.5),
+                                      base.transform(0.5, 0.5));
+            } case 1: {
+                // 2 quarters
+                Shape base = halfByHalfs[rand.nextInt(halfByHalfs.length)];
+                return new MultiShape(base,
+                                      base.transform(0.5, 0.5));
+            } case 2: {
+                // 2 halfs
+                Shape base = halfByWholes[rand.nextInt(halfByWholes.length)];
+                return new MultiShape(base,
+                                      base.transform(0.5, 0));
+            } case 3: {
+                // 3 halfs
+                Shape base = halfByHalfs[rand.nextInt(halfByWholes.length)];
+                return new MultiShape(base,
+                                      base.transform(0.5, 0),
+                                      base.transform(0, 0.5));
+            } case 4: {
+                // quarter and 2 halfs
+                Shape base1 = halfByWholes[rand.nextInt(halfByWholes.length)];
+                Shape base2 = halfByHalfs[rand.nextInt(halfByHalfs.length)];
+                return new MultiShape(base1,
+                                      base2.transform(0.5, 0),
+                                      base2.transform(0.5, 0.5));
+            } case 5: {
+                // whole
+                Shape base = wholeByWholes[rand.nextInt(wholeByWholes.length)];
+                return base;
+            }
+        }
+
+        return null; // should not occur
+    }
+
+    private static final Shape[] halfByHalfs = new Shape[] {
+        // right-angled triangle
         new Polygon(new Point(0, 0),
                     new Point(0.5, 0),
+                    new Point(0, 0.5)),
+
+        // equilateral triangle
+        new Polygon(new Point(0.25, 0),
                     new Point(0.5, 0.5),
                     new Point(0, 0.5)),
 
-        // center square
-        new Polygon(new Point(0.25, 0.25),
-                    new Point(0.75, 0.25),
-                    new Point(0.75, 0.75),
-                    new Point(0.25, 0.75)),
-
-        // rect
-        new Polygon(new Point(0, 0),
-                    new Point(1, 0),
-                    new Point(1, 0.5),
-                    new Point(0, 0.5)),
-
-        // skewed rect
-        new Polygon(new Point(0, 0),
-                    new Point(1, 0.5),
-                    new Point(1, 1),
-                    new Point(0, 0.5)),
-
         // diamond
-        new Polygon(new Point(0.5, 0.25),
-                    new Point(0.75, 0.5),
-                    new Point(0.5, 0.75),
-                    new Point(0.25, 0.5)),
+        new Polygon(new Point(0.25, 0),
+                    new Point(0.5, 0.25),
+                    new Point(0.25, 0.5),
+                    new Point(0, 0.25)),
 
-        // simple triangle
-        new Polygon(new Point(0, 0),
-                    new Point(0.5, 0),
-                    new Point(0, 0.5)),
+        // circle
+        new Circle(new Point(0.25, 0.25), 0.25),
+    };
 
-        // stretched triangles
-        new Polygon(new Point(0, 0),
-                    new Point(1, 0),
-                    new Point(0, 0.5)),
+    private static final Shape[] halfByWholes = new Shape[]{
+        // skewed triangles
         new Polygon(new Point(0, 0),
                     new Point(0.5, 0),
                     new Point(0, 1)),
+        new Polygon(new Point(0, 0),
+                    new Point(0.5, 0.5),
+                    new Point(0, 1)),
+    };
 
+    private static final Shape[] wholeByWholes = new Shape[]{
         // arrow
         new Polygon(new Point(0, 0),
                     new Point(0.5, 0.5),
@@ -103,30 +134,28 @@ public class Identicon {
                     new Point(0.5, 1),
                     new Point(0, 0.5)),
 
-        // multi-triangles
-        new MultiShape(new Polygon(new Point(0, 0),
-                                   new Point(0.5, 0),
-                                   new Point(0.25, 0.5)),
-                       new Polygon(new Point(0.5, 0),
-                                   new Point(1, 0),
-                                   new Point(0.75, 0.5)),
-                       new Polygon(new Point(0.25, 0.5),
-                                   new Point(0.75, 0.5),
-                                   new Point(0.5, 1))),
-        new MultiShape(new Polygon(new Point(0, 0),
-                                   new Point(0.5, 0.25),
-                                   new Point(0.25, 0.5)),
-                       new Polygon(new Point(1, 0),
-                                   new Point(0.75, 0.5),
-                                   new Point(0.5, 0.25)),
-                       new Polygon(new Point(1, 1),
-                                   new Point(0.5, 0.75),
-                                   new Point(0.75, 0.5)),
-                       new Polygon(new Point(0, 1),
-                                   new Point(0.25, 0.5),
-                                   new Point(0.5, 0.75))),
+        // diagonal kite
+        new Polygon(new Point(0, 0),
+                    new Point(0.5, 0),
+                    new Point(1, 1),
+                    new Point(0, 0.5)),
 
-        //circle
-        new Circle(new Point(0.5, 0.5), 0.25)
+        // stripe
+        new Polygon(new Point(0, 0),
+                    new Point(0.5, 0),
+                    new Point(1, 0.5),
+                    new Point(1, 1),
+                    new Point(0.5, 1),
+                    new Point(0, 0.5)),
+
+        // uneven stripe
+        new MultiShape(new Polygon(new Point(0, 0),
+                                   new Point(0.5, 0.5),
+                                   new Point(0.25, 0.75),
+                                   new Point(0, 0.5)),
+                       new Polygon(new Point(0.75, 0.25),
+                                   new Point(1, 0.5),
+                                   new Point(1, 1),
+                                   new Point(0.5, 0.5))),
     };
 }
