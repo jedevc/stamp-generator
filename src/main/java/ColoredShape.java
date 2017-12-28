@@ -17,6 +17,10 @@ public class ColoredShape implements Shape {
         return new ColoredShape(shape.scale(q), color);
     }
 
+    public Shape flip() {
+        return new ColoredShape(shape.flip(), color);
+    }
+
     public Shape quickRotate(double boxSize) {
         return new ColoredShape(shape.quickRotate(boxSize), color);
     }

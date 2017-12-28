@@ -20,6 +20,10 @@ public class Point {
         return new Point(x * q, y * q);
     }
 
+    public Point flip() {
+        return new Point(y, x);
+    }
+
     public Point quickRotate(double boxSize) {
         /*
          * This is a tricky little technique that rotates a point 90 degrees

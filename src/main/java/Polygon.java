@@ -28,6 +28,13 @@ public class Polygon implements Shape {
         return new Polygon(newPoints);
     }
 
+    public Shape flip() {
+        List<Point> newPoints = points.stream()
+            .map(point -> point.flip())
+            .collect(Collectors.toList());
+        return new Polygon(newPoints);
+    }
+
     public Shape quickRotate(double boxSize) {
         List<Point> newPoints = points.stream()
             .map(point -> point.quickRotate(boxSize))

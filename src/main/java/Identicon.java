@@ -24,6 +24,11 @@ public class Identicon {
                     shape = shape.quickRotate(1);
                 }
 
+                // optionally flip shape
+                if (rand.nextBoolean()) {
+                    shape = shape.flip();
+                }
+
                 // scale shape and move to correct grid position
                 shape = shape.scale(1.0 / size);
                 shape = shape.transform((double) i / size, (double) j / size);
@@ -72,7 +77,7 @@ public class Identicon {
                 return new MultiShape(base,
                                       base.transform(0.5, 0));
             } case 3: {
-                // 3 halfs
+                // 3 quarters
                 Shape base = halfByHalfs[rand.nextInt(halfByWholes.length)];
                 return new MultiShape(base,
                                       base.transform(0.5, 0),

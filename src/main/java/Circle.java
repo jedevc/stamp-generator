@@ -15,6 +15,10 @@ public class Circle implements Shape {
         return new Circle(position.scale(q), radius * q);
     }
 
+    public Shape flip() {
+        return new Circle(position.flip(), radius);
+    }
+
     public Shape quickRotate(double boxSize) {
         return new Circle(position.quickRotate(boxSize), radius);
     }

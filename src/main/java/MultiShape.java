@@ -28,6 +28,13 @@ public class MultiShape implements Shape {
         return new MultiShape(newShapes);
     }
 
+    public Shape flip() {
+        List<Shape> newShapes = shapes.stream()
+            .map(shape -> shape.flip())
+            .collect(Collectors.toList());
+        return new MultiShape(newShapes);
+    }
+
     public Shape quickRotate(double boxSize) {
         List<Shape> newShapes = shapes.stream()
             .map(shape -> shape.quickRotate(boxSize))
