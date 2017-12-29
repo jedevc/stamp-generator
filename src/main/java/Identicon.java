@@ -30,13 +30,25 @@ public class Identicon {
                 }
 
                 // scale shape and move to correct grid position
-                shape = shape.scale(1.0 / size);
-                shape = shape.transform((double) i / size, (double) j / size);
+                double xShift = (double) i / size;
+                double yShift = (double) j / size;
+                double scale = 1.0 / size;
+                shape = shape.scale(scale);
+                shape = shape.transform(xShift, yShift);
 
-                // color the shape
-                Color color = new Color(rand.nextInt(255),
-                        rand.nextInt(255), rand.nextInt(255));
-                shape = new ColoredShape(shape, color);
+                // color the shape and optionally invert it
+                Color fillColor = new Color(rand.nextInt(255),
+                                            rand.nextInt(255),
+                                            rand.nextInt(255));
+                if (rand.nextBoolean()) {
+                    Shape rect = new Rectangle(new Point(xShift, yShift), scale, scale);
+                    rect = new ColoredShape(rect, fillColor);
+
+                    shape = new ColoredShape(shape, new Color(255, 255, 255));
+                    shape = new MultiShape(rect, shape);
+                } else {
+                    shape = new ColoredShape(shape, fillColor);
+                }
 
                 // add shape and it's rotations
                 shapes.add(shape);

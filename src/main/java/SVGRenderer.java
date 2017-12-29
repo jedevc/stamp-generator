@@ -41,6 +41,11 @@ public class SVGRenderer implements Renderer {
                 color.getRed(), color.getBlue(), color.getGreen());
     }
 
+    public void drawRectangle(Point position, double width, double height) {
+        writer.format("<rect x=\"%s\" y=\"%s\" width=\"%s\" height=\"%s\" fill=\"%s\" />\n",
+                position.x * size, position.y * size, width * size, height * size, getColorString());
+    }
+
     public void drawPolygon(List<Point> points) {
         StringBuilder pointString = new StringBuilder();
         for (Point point : points) {
