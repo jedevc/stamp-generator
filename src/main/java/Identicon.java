@@ -63,7 +63,7 @@ public class Identicon {
     public void render(Renderer target) {
         target.start();
         for (Shape shape : shapes) {
-            shape.draw(target);
+            shape.render(target);
         }
         target.end();
     }

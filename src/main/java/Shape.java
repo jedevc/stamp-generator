@@ -4,5 +4,5 @@ public interface Shape {
     public Shape flip();
     public Shape quickRotate(double boxSize);
 
-    public void draw(Renderer target);
+    public void render(Renderer target);
 }

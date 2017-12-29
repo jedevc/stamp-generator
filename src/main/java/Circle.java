@@ -23,7 +23,7 @@ public class Circle implements Shape {
         return new Circle(position.quickRotate(boxSize), radius);
     }
 
-    public void draw(Renderer target) {
+    public void render(Renderer target) {
         target.drawCircle(position, radius);
     }
 }

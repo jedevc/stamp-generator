@@ -42,7 +42,7 @@ public class Polygon implements Shape {
         return new Polygon(newPoints);
     }
 
-    public void draw(Renderer target) {
+    public void render(Renderer target) {
         target.drawPolygon(points);
     }
 }

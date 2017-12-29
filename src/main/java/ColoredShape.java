@@ -25,11 +25,11 @@ public class ColoredShape implements Shape {
         return new ColoredShape(shape.quickRotate(boxSize), color);
     }
 
-    public void draw(Renderer target) {
+    public void render(Renderer target) {
         Color oldColor = target.getColor();
         target.setColor(color);
 
-        shape.draw(target);
+        shape.render(target);
 
         target.setColor(oldColor);
     }

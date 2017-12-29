@@ -42,9 +42,9 @@ public class MultiShape implements Shape {
         return new MultiShape(newShapes);
     }
 
-    public void draw(Renderer target) {
+    public void render(Renderer target) {
         for (Shape shape : shapes) {
-            shape.draw(target);
+            shape.render(target);
         }
     }
 }

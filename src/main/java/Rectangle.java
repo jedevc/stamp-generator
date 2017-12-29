@@ -25,7 +25,7 @@ public class Rectangle implements Shape {
         return new Rectangle(position.transform(0, height).quickRotate(boxSize), height, width);
     }
 
-    public void draw(Renderer target) {
+    public void render(Renderer target) {
         target.drawRectangle(position, width, height);
     }
 }
