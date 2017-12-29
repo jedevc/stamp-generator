@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class MultiShape implements Shape {
-    private final List<Shape> shapes;
+    public final List<Shape> shapes;
 
     public MultiShape(List<Shape> shapes) {
         this.shapes = new ArrayList<>(shapes);

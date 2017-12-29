@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class Polygon implements Shape {
-    private final List<Point> points;
+    public final List<Point> points;
 
     public Polygon(List<Point> points) {
         this.points = new ArrayList<>(points);

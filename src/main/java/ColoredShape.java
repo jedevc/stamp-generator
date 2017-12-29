@@ -1,8 +1,8 @@
 import java.awt.Color;
 
 public class ColoredShape implements Shape {
-    private final Shape shape;
-    private final Color color;
+    public final Shape shape;
+    public final Color color;
 
     public ColoredShape(Shape shape, Color color) {
         this.shape = shape;

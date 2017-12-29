@@ -1,7 +1,7 @@
 public class Rectangle implements Shape {
-    private final Point position;
-    private final double width;
-    private final double height;
+    public final Point position;
+    public final double width;
+    public final double height;
 
     public Rectangle(Point position, double width, double height) {
         this.position = position;

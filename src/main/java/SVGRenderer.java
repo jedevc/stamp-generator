@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.io.PrintWriter;
 
 public class SVGRenderer implements Renderer {
-    private final double size;
+    public final double size;
     private Color color;
     
     private PrintWriter writer;

@@ -1,6 +1,6 @@
 public class Circle implements Shape {
-    private final Point position;
-    private final double radius;
+    public final Point position;
+    public final double radius;
 
     public Circle(Point position, double radius) {
         this.position = position;
