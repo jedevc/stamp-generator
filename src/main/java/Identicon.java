@@ -17,7 +17,7 @@ public class Identicon {
         for (int i = 0; i < size / 2; i++) {
             for (int j = 0; j < size / 2; j++) {
                 // select random shape
-                Shape shape = generateShape(rand);
+                Shape shape = generateShape(rand.nextInt(7), rand.nextInt(4), rand.nextInt(4));
 
                 // rotate to random position
                 for (int r = 0; r < rand.nextInt(4); r++) {
@@ -68,47 +68,52 @@ public class Identicon {
         target.end();
     }
 
-    private static Shape generateShape(Random rand) {
-        int option = rand.nextInt(6);
-        switch (option) {
-            case 0: {
-                // 4 quarters
-                Shape base = halfByHalfs[rand.nextInt(halfByHalfs.length)];
-                return new MultiShape(base,
-                                      base.transform(0.5, 0),
-                                      base.transform(0, 0.5),
-                                      base.transform(0.5, 0.5));
-            } case 1: {
-                // 2 quarters
-                Shape base = halfByHalfs[rand.nextInt(halfByHalfs.length)];
-                return new MultiShape(base,
-                                      base.transform(0.5, 0.5));
-            } case 2: {
-                // 2 halfs
-                Shape base = halfByWholes[rand.nextInt(halfByWholes.length)];
-                return new MultiShape(base,
-                                      base.transform(0.5, 0));
-            } case 3: {
-                // 3 quarters
-                Shape base = halfByHalfs[rand.nextInt(halfByWholes.length)];
-                return new MultiShape(base,
-                                      base.transform(0.5, 0),
-                                      base.transform(0, 0.5));
-            } case 4: {
-                // quarter and 2 halfs
-                Shape base1 = halfByWholes[rand.nextInt(halfByWholes.length)];
-                Shape base2 = halfByHalfs[rand.nextInt(halfByHalfs.length)];
-                return new MultiShape(base1,
-                                      base2.transform(0.5, 0),
-                                      base2.transform(0.5, 0.5));
-            } case 5: {
-                // whole
-                Shape base = wholeByWholes[rand.nextInt(wholeByWholes.length)];
-                return base;
-            }
+    private static Shape generateShape(int option, int choice, int choice2)
+            throws IllegalArgumentException {
+        if (option == 0) {
+            // 4 quarters
+            Shape base = halfByHalfs[choice % halfByHalfs.length];
+            return new MultiShape(base,
+                                  base.transform(0.5, 0),
+                                  base.transform(0, 0.5),
+                                  base.transform(0.5, 0.5));
+        } else if (option == 1) {
+            // 2 quarters
+            Shape base = halfByHalfs[choice % halfByHalfs.length];
+            return new MultiShape(base,
+                                  base.transform(0.5, 0.5));
+        } else if (option == 2) {
+            // 2 halfs
+            Shape base = halfByWholes[choice % halfByWholes.length];
+            return new MultiShape(base,
+                                  base.transform(0.5, 0));
+        } else if (option == 3) {
+            // 3 quarters
+            Shape base = halfByHalfs[choice % halfByHalfs.length];
+            return new MultiShape(base,
+                                  base.transform(0.5, 0),
+                                  base.transform(0, 0.5));
+        } else if (option == 4) {
+            // quarter and 2 halfs
+            Shape base1 = halfByWholes[choice % halfByWholes.length];
+            Shape base2 = halfByHalfs[choice2 % halfByHalfs.length];
+            return new MultiShape(base1,
+                                  base2.transform(0.5, 0),
+                                  base2.transform(0.5, 0.5));
+        } else if (option == 5) {
+            // 2 quarters and 2 quarters
+            Shape base1 = halfByHalfs[choice % halfByHalfs.length];
+            Shape base2 = halfByHalfs[choice2 % halfByHalfs.length];
+            return new MultiShape(base1,
+                                  base2.transform(0.5, 0),
+                                  base2.transform(0, 0.5),
+                                  base1.transform(0.5, 0.5));
+        } else if (option == 6) {
+            // whole
+            return wholeByWholes[choice % wholeByWholes.length];
+        } else {
+            throw new IllegalArgumentException("Invalid option");
         }
-
-        return null; // should not occur
     }
 
     private static final Shape[] halfByHalfs = new Shape[] {
