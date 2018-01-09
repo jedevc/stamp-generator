@@ -1,3 +1,7 @@
+package shape;
+
+import renderer.Renderer;
+
 public class Circle implements Shape {
     public final Point position;
     public final double radius;

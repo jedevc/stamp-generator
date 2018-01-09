@@ -1,3 +1,7 @@
+package shape;
+
+import renderer.Renderer;
+
 public class Point {
     public final double x;
     public final double y;

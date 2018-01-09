@@ -1,5 +1,9 @@
+package renderer;
+
 import java.util.List;
 import java.awt.Color;
+
+import shape.Point;
 
 public interface Renderer {
     public void start();

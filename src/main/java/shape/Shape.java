@@ -1,3 +1,7 @@
+package shape;
+
+import renderer.Renderer;
+
 public interface Shape {
     public Shape transform(double dx, double dy);
     public Shape scale(double q);

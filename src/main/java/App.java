@@ -4,6 +4,9 @@ import java.io.FileNotFoundException;
 
 import java.util.Scanner;
 
+import renderer.Renderer;
+import renderer.SVGRenderer;
+
 public class App {
     public static void main(String[] args) {
         App app = new App();

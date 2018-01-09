@@ -1,7 +1,11 @@
+package shape;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
+
+import renderer.Renderer;
 
 public class Polygon implements Shape {
     public final List<Point> points;

@@ -1,4 +1,8 @@
+package shape;
+
 import java.awt.Color;
+
+import renderer.Renderer;
 
 public class ColoredShape implements Shape {
     public final Shape shape;

@@ -1,7 +1,11 @@
+package renderer;
+
 import java.util.List;
 import java.awt.Color;
 
 import java.io.PrintWriter;
+
+import shape.Point;
 
 public class SVGRenderer implements Renderer {
     public final double size;

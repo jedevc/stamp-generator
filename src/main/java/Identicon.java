@@ -3,6 +3,10 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.awt.Color;
 
+import shape.*;
+
+import renderer.Renderer;
+
 public class Identicon {
     public final int size;
     private List<Shape> shapes;
