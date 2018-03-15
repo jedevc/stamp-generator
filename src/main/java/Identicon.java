@@ -4,6 +4,7 @@ import java.util.Random;
 import java.awt.Color;
 
 import shape.*;
+import colorscheme.*;
 
 import renderer.Renderer;
 
@@ -18,6 +19,11 @@ public class Identicon {
 
     public void generate() {
         Random rand = new Random();
+
+        Color base = new Color(rand.nextInt(255), rand.nextInt(255),
+                rand.nextInt(255));
+        Color[] colors = generateColors(base, rand.nextInt(4));
+
         for (int i = 0; i < size / 2; i++) {
             for (int j = 0; j < size / 2; j++) {
                 // select random shape
@@ -41,9 +47,7 @@ public class Identicon {
                 shape = shape.transform(xShift, yShift);
 
                 // color the shape and optionally invert it
-                Color fillColor = new Color(rand.nextInt(255),
-                                            rand.nextInt(255),
-                                            rand.nextInt(255));
+                Color fillColor = colors[rand.nextInt(colors.length)];
                 if (rand.nextBoolean()) {
                     Shape rect = new Rectangle(new Point(xShift, yShift), scale, scale);
                     rect = new ColoredShape(rect, fillColor);
@@ -118,6 +122,23 @@ public class Identicon {
         } else {
             throw new IllegalArgumentException("Invalid option");
         }
+    }
+
+    private static Color[] generateColors(Color base, int option)
+            throws IllegalArgumentException {
+        ColorScheme scheme;
+
+        if (option == 0 || option == 1) {
+            scheme = new Analogous(0.07f);
+        } else if (option == 2) {
+            scheme = new Complementary(0, -0.1f, -0.1f);
+        } else if (option == 3) {
+            scheme = new Triadic(0.05f, -0.2f, -0.1f);
+        } else {
+            throw new IllegalArgumentException("Invalid option");
+        }
+
+        return scheme.generate(4, base);
     }
 
     private static final Shape[] halfByHalfs = new Shape[] {
